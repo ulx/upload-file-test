@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/button"
-            android:layout_alignEnd="@+id/editEmail"/>
+            android:layout_alignEnd="@+id/editEmail"
+            android:onClick="onClickLigin"/>
 
     </LinearLayout>
 </RelativeLayout>

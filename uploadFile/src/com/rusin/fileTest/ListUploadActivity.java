@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
 import java.io.File;
@@ -22,7 +23,6 @@ public class ListUploadActivity extends Activity {
     public void chooseFileOnClick(View v){
         // Create the ACTION_GET_CONTENT Intent
         Intent getContentIntent = FileUtils.createGetContentIntent();
-
         Intent intent = Intent.createChooser(getContentIntent, "Select a file");
         startActivityForResult(intent, REQUEST_CHOOSER);
     }
@@ -41,6 +41,7 @@ public class ListUploadActivity extends Activity {
                     // Alternatively, use FileUtils.getFile(Context, Uri)
                     if (path != null && FileUtils.isLocal(path)) {
                         File file = new File(path);
+                        Toast.makeText(getApplicationContext(), "send file " + file.getName(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
