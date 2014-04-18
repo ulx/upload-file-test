@@ -4,6 +4,6 @@ package com.rusin.fileTest.jsonObject;
 public class AddFileRequest {
     public String hash;
     public String path;
-    public int size;
+    public long size;
     public String token;
 }

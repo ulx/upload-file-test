@@ -1,6 +1,7 @@
 package com.rusin.fileTest;
 
 import android.app.Application;
+import com.roscopeco.ormdroid.ORMDroidApplication;
 import com.rusin.fileTest.net.FileUpload;
 import com.rusin.fileTest.net.MockClient;
 import com.rusin.fileTest.net.ServerClient;
@@ -8,8 +9,16 @@ import retrofit.RestAdapter;
 
 
 public class App extends Application {
+
+
     private static FileUpload fileSever;
     private static String token;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ORMDroidApplication.initialize(getApplicationContext());
+    }
 
     public static FileUpload getServer() {
         if (fileSever == null) {
@@ -26,5 +35,9 @@ public class App extends Application {
 
     public static void setToken(String token) {
         App.token = token;
+    }
+
+    public static String getToken() {
+        return token;
     }
 }

@@ -38,7 +38,9 @@
                 android:name=".ListUploadActivity"
                 android:label="@string/app_name" >
         </activity>
-
+        <meta-data
+                android:name="ormdroid.database.name"
+                android:value="fileupload" />
     </application>
 
 

@@ -3,7 +3,9 @@ package com.rusin.fileTest.net;
 import android.net.Uri;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.rusin.fileTest.jsonObject.AddFileResponse;
 import com.rusin.fileTest.jsonObject.LoginResponse;
+import com.rusin.fileTest.jsonObject.UploadResponse;
 import retrofit.client.Client;
 import retrofit.client.Request;
 import retrofit.client.Response;
@@ -11,6 +13,7 @@ import retrofit.mime.TypedByteArray;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by alexander on 16.04.14.
@@ -24,16 +27,32 @@ public class MockClient implements Client {
         Log.d("MOCK SERVER", "fetching uri: " + uri.toString());
 
         String responseString = "";
-
-        if(uri.getPath().equals("/login")) {
+        Gson gson = new Gson();
+        if (uri.getPath().equals("/login")) {
             responseString = "JSON STRING HERE LOGIN";
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.token = "61vLOLky6skRc7mnzK9dOZsRXINUxBZJ5I265YefcAQ1";
-            Gson gson = new Gson();
+
             responseString = gson.toJson(loginResponse);
-        } else {
+        } else if (uri.getPath().equals("/addfile")) {
+            Log.d("MOCK SERVER", "request: " + request.toString());
+            AddFileResponse addFileResponse = new AddFileResponse();
+            addFileResponse.id = new Random().nextInt(1000);
+            addFileResponse.start_byte = 0;
+            responseString = gson.toJson(addFileResponse);
+
+        } else if (uri.getPath().equals("/upload")) {
+            Log.d("MOCK SERVER", "request: " + request.toString());
+            UploadResponse uploadResponse = new UploadResponse();
+            uploadResponse.continueStatus = false;
+            uploadResponse.hash = "test";
+            responseString = gson.toJson(uploadResponse);
+
+        }
+        else {
             responseString = "OTHER JSON RESPONSE STRING";
         }
+
 
         //return new Response(request.getUrl(), 200, "nothing", Collections.EMPTY_LIST, new TypedByteArray("application/json", responseString.getBytes()));
         return new Response(request.getUrl(), 200, "nothing", Collections.EMPTY_LIST, new TypedByteArray("application/json", responseString.getBytes()));
