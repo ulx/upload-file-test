@@ -29,7 +29,9 @@ public class App extends Application {
                     .build();
             // Create an instance of our GitHub API interface.
             fileSever = restAdapter.create(FileUpload.class);
+
         }
+
        return fileSever;
     }
 

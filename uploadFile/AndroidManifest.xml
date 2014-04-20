@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rusin.fileTest" >
 
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"></uses-sdk>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
@@ -41,6 +42,9 @@
         <meta-data
                 android:name="ormdroid.database.name"
                 android:value="fileupload" />
+        <service
+                android:name=".UploadServerService"
+                android:exported="false"/>
     </application>
 
 

@@ -95,9 +95,10 @@ public class ListUploadActivity extends Activity {
 
         @Override
         public void success(AddFileResponse addFileResponse, Response response) {
-            FileUploadModel fileUploadModel = new FileUploadModel(addFileResponse.id, addFileRequest.path, addFileResponse.start_byte, 0, true);
+            FileUploadModel fileUploadModel = new FileUploadModel(addFileResponse.id, addFileRequest.path,  new File(addFileRequest.path).length(), addFileResponse.start_byte, 0, true);
             fileUploadModel.save();
             refresh();
+            startService(new Intent(ListUploadActivity.this, UploadServerService.class).putExtra("id", addFileResponse.id));
         }
 
         @Override

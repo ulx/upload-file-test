@@ -3,15 +3,24 @@ package com.rusin.fileTest.net;
 import android.net.Uri;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.rusin.fileTest.App;
 import com.rusin.fileTest.jsonObject.AddFileResponse;
 import com.rusin.fileTest.jsonObject.LoginResponse;
 import com.rusin.fileTest.jsonObject.UploadResponse;
+import retrofit.client.ApacheClient;
 import retrofit.client.Client;
 import retrofit.client.Request;
 import retrofit.client.Response;
+import retrofit.converter.ConversionException;
+import retrofit.converter.Converter;
+import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedInput;
+import retrofit.mime.TypedOutput;
+import retrofit.mime.TypedString;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Random;
 
@@ -35,7 +44,7 @@ public class MockClient implements Client {
 
             responseString = gson.toJson(loginResponse);
         } else if (uri.getPath().equals("/addfile")) {
-            Log.d("MOCK SERVER", "request: " + request.toString());
+            Log.d("MOCK SERVER", "request: " + request.getBody());
             AddFileResponse addFileResponse = new AddFileResponse();
             addFileResponse.id = new Random().nextInt(1000);
             addFileResponse.start_byte = 0;
@@ -43,6 +52,7 @@ public class MockClient implements Client {
 
         } else if (uri.getPath().equals("/upload")) {
             Log.d("MOCK SERVER", "request: " + request.toString());
+
             UploadResponse uploadResponse = new UploadResponse();
             uploadResponse.continueStatus = false;
             uploadResponse.hash = "test";
