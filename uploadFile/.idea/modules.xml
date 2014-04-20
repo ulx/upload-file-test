@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../aFileChooser/aFileChooser.iml" filepath="$PROJECT_DIR$/../aFileChooser/aFileChooser.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ormdroid/ormdroid.iml" filepath="$PROJECT_DIR$/../ormdroid/ormdroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ormdroid/ormdroid.iml" filepath="$PROJECT_DIR$/../ormdroid/ormdroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/uploadFile.iml" filepath="$PROJECT_DIR$/uploadFile.iml" />
     </modules>
   </component>

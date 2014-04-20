@@ -4,6 +4,7 @@ import com.rusin.fileTest.jsonObject.*;
 import retrofit.Callback;
 import retrofit.http.*;
 import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedString;
 
 /**
  * Created by alexander on 16.04.14.
@@ -18,5 +19,5 @@ public   interface FileUpload {
     })
     @Multipart
     @POST("/upload")
-    UploadResponse updateUser(@Part("data") TypedByteArray file, @Part("info") @Body UploadRequest uploadFile, Callback<UploadResponse> cb);
+    void updateUser(@Part("data") TypedByteArray file, @Part("info") TypedByteArray request, Callback<UploadResponse> cb);
 }

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import com.rusin.fileTest.jsonObject.UploadRequest;
 import com.rusin.fileTest.jsonObject.UploadResponse;
 import com.rusin.fileTest.model.FileUploadModel;
@@ -14,6 +15,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedString;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +78,7 @@ public class UploadServerService extends Service {
         private final File mFileSend;
         int idFile;
         private FileUploadModel fileUploadModel;
-
+        private Gson gson;
         public UploadFileRun(int idFile) {
             this.idFile = idFile;
             Log.d(LOG_TAG, "MyRun#" + idFile + " file");
@@ -86,11 +88,13 @@ public class UploadServerService extends Service {
             mRequest = new UploadRequest();
             mPartCallback.setRequest(mRequest);
             mFileSend = new File(fileUploadModel.path);
+            gson = new Gson();
         }
 
         public void run() {
 
             Log.d(LOG_TAG, "MyRun#" + idFile + " start");
+            fileUploadModel = FileUploadModel.getFileUpload(idFile);
             send();
 
         }
@@ -115,7 +119,9 @@ public class UploadServerService extends Service {
 
         private void sendPart(TypedByteArray file) {
             mPartCallback.setRequest(mRequest);
-            App.getServer().updateUser(file, mRequest, mPartCallback);
+            String s = gson.toJson(mRequest);
+            TypedByteArray request = new TypedByteArray("application/json", s.getBytes());
+            App.getServer().updateUser(file, request, mPartCallback);
         }
 
         void stop() {
