@@ -110,6 +110,7 @@ public class UploadServerService extends Service {
                 mRequest.end_byte = fileUploadModel.start_byte + (int)getCoutnSendByte();
                 mRequest.token = App.getToken();
                 sendPart(fileByte);
+                Log.d(LOG_TAG, "MyRun#" + fileUploadModel.server_id + " send");
             } catch (IOException e) {
                 e.printStackTrace();
             }
