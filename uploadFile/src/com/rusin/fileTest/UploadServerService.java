@@ -45,7 +45,7 @@ public class UploadServerService extends Service {
     }
 
     private void sendOldFile() {
-        List<FileUploadModel> list = FileUploadModel.getUploadFile(false);
+        List<FileUploadModel> list = FileUploadModel.getUploadFile(true);
         for (FileUploadModel item : list) {
             UploadFileRun mr = new UploadFileRun(item.server_id);
             es.execute(mr);
@@ -63,8 +63,10 @@ public class UploadServerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Service onStartCommand", Toast.LENGTH_SHORT).show();
         int idFile = intent.getIntExtra("id", -1);
-        UploadFileRun mr = new UploadFileRun(idFile);
-        es.execute(mr);
+        if (idFile != -1) {
+            UploadFileRun mr = new UploadFileRun(idFile);
+            es.execute(mr);
+        }
         return super.onStartCommand(intent, flags, startId);
 
     }

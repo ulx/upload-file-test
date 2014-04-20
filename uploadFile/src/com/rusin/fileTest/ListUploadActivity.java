@@ -32,7 +32,7 @@ public class ListUploadActivity extends Activity {
         ListView listView = (ListView)findViewById(R.id.listFile);
         mAdapter = new ArrayAdapter<FileUploadModel>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(mAdapter);
-
+        startService(new Intent(this, UploadServerService.class));
     }
 
     @Override
